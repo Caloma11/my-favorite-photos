@@ -45,7 +45,7 @@ base_url = "https://pokeapi.glitch.me/v1/pokemon/"
   image_url = json_response[0]["sprite"]
 
   if urls.include?(image_url)
-    puts "Essa ja ta la, jogador"
+    puts "Photo has already been used."
   else
     urls << image_url
     file = URI.open(json_response[0]["sprite"])

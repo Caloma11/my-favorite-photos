@@ -1,4 +1,3 @@
-
 <div class="container">
   <h1>Browse photos:</h1>
   <div class="row">
@@ -15,6 +14,7 @@
           <% end %>
         <% end %>
         </div>
+        <p>Photo by: <%= link_to photo.record.name , artist_path(photo.record) %> </p>
       </div>
     <% end %>
   </div>
