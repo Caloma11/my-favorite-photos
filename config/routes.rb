@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :favorites, only: [:create, :destroy]
 
   get "dashboard", to: "pages#dashboard", as: :dashboard
+  get "top_10", to: "pages#top", as: :top
 
 end

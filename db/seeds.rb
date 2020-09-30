@@ -30,6 +30,8 @@ end
 
 # Attaching photos to artists
 
+urls = []
+
 counter = 1
 times_counter = 0
 base_url = "https://pokeapi.glitch.me/v1/pokemon/"
@@ -40,6 +42,7 @@ base_url = "https://pokeapi.glitch.me/v1/pokemon/"
   json_response = JSON.parse(open("#{base_url}#{counter}").read)
 
   # Opening it's url to retrieve an image
+  urls << json_response[0]["sprite"]
   file = URI.open(json_response[0]["sprite"])
 
   # Grabbing a random artist
@@ -53,3 +56,18 @@ base_url = "https://pokeapi.glitch.me/v1/pokemon/"
   times_counter += 1
   puts "#{times_counter} photos attached to artists"
 end
+
+# Favorite a bunch of images for different users
+
+favorite_count = 1
+
+120.times do
+  Favorite.create(
+    user: User.all.sample,
+    active_storage_blob: ActiveStorage::Blob.all.sample
+  )
+  puts "#{favorite_count} favorites created"
+  favorite_count += 1
+end
+
+p urls.map { |a| {url: a, count: urls.count(a) } }
