@@ -44,21 +44,23 @@ base_url = "https://pokeapi.glitch.me/v1/pokemon/"
   # Opening it's url to retrieve an image
   image_url = json_response[0]["sprite"]
 
-  next if urls.include?(image_url)
+  if urls.include?(image_url)
+    puts "Essa ja ta la, jogador"
+  else
+    urls << image_url
+    file = URI.open(json_response[0]["sprite"])
 
-  urls << image_url
-  file = URI.open(json_response[0]["sprite"])
+    # Grabbing a random artist
+    artist = Artist.all.sample
 
-  # Grabbing a random artist
-  artist = Artist.all.sample
+    # Attaching that image to the selected artist
+    artist.photos.attach(io: file, filename: "poke-#{counter}.png", content_type: 'image/png')
 
-  # Attaching that image to the selected artist
-  artist.photos.attach(io: file, filename: "poke-#{counter}.png", content_type: 'image/png')
+    counter += rand(3)
 
-  counter += rand(3)
-
-  times_counter += 1
-  puts "#{times_counter} photos attached to artists"
+    times_counter += 1
+    puts "#{times_counter} photos attached to artists"
+  end
 end
 
 # Favorite a bunch of images for different users
