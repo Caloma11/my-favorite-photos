@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>These are your favorites:</h1>
+
+  <div class="row">
+    <% @favorites.each do |favorite| %>
+      <div class="col-sm-4 my-3">
+        <div class="col-12" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.3)), url(<%= cl_image_path favorite.blob.key %>); height: 200px; background-position: center; background-size: cover; border: 1px solid black; position: relative;">
+        </div>
+        <% if current_user.has_favorite?(favorite.blob) %>
+          <%= link_to favorite_path(favorite), method: :delete do %>
+            <i class="fas fa-heart" style="color: red; position: absolute; top: 4px; right: 24px; font-size: 22px"></i>
+          <% end %>
+        <% else %>
+          <%= link_to favorites_path(blob: favorite.blob), method: :post do %>
+            <i class="far fa-heart" style="color: red; position: absolute; top: 4px; right: 4px; font-size: 22px"></i>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
