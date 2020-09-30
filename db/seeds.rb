@@ -36,13 +36,17 @@ counter = 1
 times_counter = 0
 base_url = "https://pokeapi.glitch.me/v1/pokemon/"
 
-36.times do
+45.times do
 
   # Grab a pokemon from api
   json_response = JSON.parse(open("#{base_url}#{counter}").read)
 
   # Opening it's url to retrieve an image
-  urls << json_response[0]["sprite"]
+  image_url = json_response[0]["sprite"]
+
+  next if urls.include?(image_url)
+
+  urls << image_url
   file = URI.open(json_response[0]["sprite"])
 
   # Grabbing a random artist
