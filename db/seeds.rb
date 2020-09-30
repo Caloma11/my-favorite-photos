@@ -56,11 +56,10 @@ base_url = "https://pokeapi.glitch.me/v1/pokemon/"
     # Attaching that image to the selected artist
     artist.photos.attach(io: file, filename: "poke-#{counter}.png", content_type: 'image/png')
 
-    counter += rand(3)
-
     times_counter += 1
     puts "#{times_counter} photos attached to artists"
   end
+    counter += rand(3)
 end
 
 # Favorite a bunch of images for different users
